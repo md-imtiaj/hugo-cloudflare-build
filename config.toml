@@ -10,6 +10,9 @@ googleAnalytics = "XXX"
 enableRobotsTXT = true
 enableGitInfo = false
 Paginate = 6
+
+minify:
+  minifyOutput: true
   
 [params]
     showRelatedPosts = true #for lightbi related posts
