@@ -1,0 +1,60 @@
+<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6  mb-4">
+  <a href="{{ .Permalink }}" alt="Link to {{ .Title }}">
+    <div class="card h-100 single-post-card shadow-effect bg-faded-light border">
+        
+		
+		{{ if .Params.image }}
+		  {{ $externalURL := .Params.image }}
+		  {{ $randomNumber := div (mod (int (now.UnixNano)) 4) 1 }}
+		  {{ $newURL := printf "http://i%d.wp.com/%s?w=300" $randomNumber (replaceRE "^https?://(.*)" "$1" $externalURL) }}
+		  <img src="{{ $newURL }}" alt="{{ .Title }}" class="card-img-top img-fluid lazyload" width="400px" height="225px">
+		  
+		  {{ if .Params.video }}
+           <div class="duration">
+		     {{ if .Params.video.duration }} 
+			  {{ .Params.video.duration }} 
+			 {{ end }}
+		   </div>
+          {{ end }}
+		  
+		{{ end }}
+            <div class="card-body">
+
+                <h3 class="fw-bold post-title">{{ .Title }}</h3>
+                {{ if .Params.subtitle }}
+                <h3 class="post-subtitle">
+                    {{ .Params.subtitle }}
+                </h3>
+                {{ end }}
+
+                <p class="post-meta">
+                    {{ partial "post_meta_notes.html" . }}
+                </p>
+                {{ print }}
+
+                <div class="post-entry">
+                    {{ if .Description }}
+                    {{ .Description }}
+
+                    {{ else }}
+                    {{ .Content }}
+                    {{ end }}
+                </div>
+
+                <div class="read-more-section">
+                    <!-- post-read-more  -->
+                    <h6><a href="{{ .Permalink }}" class="text-muted link-underline" alt="Link to {{ .Title }}">Read
+                            more <i class="bi bi-arrow-right"></i></a> </h6>
+                </div>
+            </div>
+
+            
+			
+
+            
+        
+        
+    </div>
+	
+	</a>
+</div>

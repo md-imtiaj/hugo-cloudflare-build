@@ -1,0 +1,57 @@
+baseURL = 'https://pornstar.moster/'
+languageCode = 'en-us'
+title = 'Pornstar.Moster'
+
+
+theme = 'lightbi-hugo'
+
+
+googleAnalytics = "XXX"
+enableRobotsTXT = true
+enableGitInfo = false
+Paginate = 6
+  
+[params]
+    showRelatedPosts = true #for lightbi related posts
+    description = "Pornstar Monster"
+    author = "Pornstar Monster"
+    selfHosted = true
+	mainSections = ["post","posts"]
+	#dateFormat = "2 January 2023"
+	comments = false
+	readingTime = true
+	wordCount = true
+	useHLJS = true
+	socialShare = true
+	delayDisqus = true
+	summaryLength  = "9"
+	gcse = false
+	Lastmod = true
+	rss = true 
+	pagination = "10"
+	hideAuthor = true
+
+  [params.mytags]
+	go = 'Go is developed by google.'
+	php = 'PHP is the most populer language for web developemnt.'
+	
+	
+[[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+
+[[menu.main]]
+    name = "Videos"
+    url = "/tags/videos/"
+    weight = 2
+
+[[menu.main]]
+    name = "PornStars"
+    url = "/tags/pornstars/"
+    weight = 3
+
+[[menu.main]]
+    name = "Photos"
+    url = "/tags/photos/"
+    weight = 4
