@@ -11,8 +11,8 @@ enableRobotsTXT = true
 enableGitInfo = false
 Paginate = 6
 
-minify:
-  minifyOutput: true
+[minify]
+  minifyOutput = false
   
 [params]
     showRelatedPosts = true #for lightbi related posts
