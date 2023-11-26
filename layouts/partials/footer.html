@@ -26,11 +26,20 @@
           <li>
             <a href="{{ with .OutputFormats.Get "RSS" }}{{ .RelPermalink }}{{ end }}" title="RSS">
               <span class="mx-2">
-                <i class="bi bi-rss"></i>
+                <i class="bi bi-rss">Rss 📡</i>
               </span>
             </a>
           </li>
           {{ end }}
+		  |
+		  <li>
+            <a href="{{ .Sitemap.Filename | default "sitemap.xml" | absURL }}" title="SiteMap">
+              <span class="mx-2">
+                <i class="bi bi-rss">SiteMap</i>
+              </span>
+            </a>
+          </li>
+		  
         </ul>
       </div>
     </div>
@@ -70,7 +79,8 @@
 </footer>
 
 {{- if .Site.Params.selfHosted -}}
-<script src="{{ "vendor/bootstrap/js/bootstrap.bundle.min.js" | absURL }}"></script>
+<!--i don't need this lib just for toggle show hide-->
+<!--script src="{{ "vendor/bootstrap/js/bootstrap.bundle.min.js" | absURL }}"></script-->
 {{- else -}}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 {{- end }}
@@ -81,5 +91,26 @@
 <script> hljs.initHighlightingOnLoad(); </script>
 <script> $(document).ready(function () { $("pre.chroma").css("padding", "0"); }); </script>
 {{- end -}}
-<script src="{{ "js/dark-mode.js" | absURL }}"></script>
+
+{{- if .Site.Params.darkMode }} 
+<!--script src="{{ "js/dark-mode.js" | absURL }}"></script-->
+<script>var toggle=document.getElementById("dark-mode-toggle"),darkTheme=document.getElementById("dark-mode-theme"),systemTheme=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light",savedTheme=localStorage.getItem("dark-mode-storage")||systemTheme;function setTheme(e){"dark"===e?(darkTheme.disabled=!1,toggle.className="bi bi-sun"):"light"===e&&(darkTheme.disabled=!0,toggle.className="bi bi-moon-stars")}setTheme(savedTheme),toggle.addEventListener("click",()=>{"bi bi-moon-stars"===toggle.className?(setTheme("dark"),localStorage.setItem("dark-mode-storage","dark")):"bi bi-sun"===toggle.className&&(setTheme("light"),localStorage.setItem("dark-mode-storage","light"))}),window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{e.matches?setTheme("dark"):setTheme("light")});</script>
+{{- end -}}
+
 {{- partial "footer_custom.html" . }}
+
+
+<!-- Your custom JavaScript for navbar toggle -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Get the navbar toggle button and the navbar itself
+    var navbarToggleBtn = document.querySelector('.navbar-toggler'); //getElementById('navbarToggleBtn');
+    var navbarNav = document.getElementById('navbarNav');
+
+    // Add click event listener to the toggle button
+    navbarToggleBtn.addEventListener('click', function () {
+      // Toggle the 'show' class on the navbar
+      navbarNav.classList.toggle('show');
+    });
+  });
+</script>

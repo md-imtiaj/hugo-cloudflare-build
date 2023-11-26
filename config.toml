@@ -11,6 +11,10 @@ enableRobotsTXT = true
 enableGitInfo = false
 Paginate = 6
 
+[permalinks]
+  posts = '/:slug/'
+  tags = '/:slug/'
+  
 [minify]
   minifyOutput = false
   
@@ -24,7 +28,7 @@ Paginate = 6
 	comments = false
 	readingTime = true
 	wordCount = true
-	useHLJS = true
+	useHLJS = false
 	socialShare = true
 	delayDisqus = true
 	summaryLength  = "9"
@@ -33,6 +37,7 @@ Paginate = 6
 	rss = true 
 	pagination = "10"
 	hideAuthor = true
+	darkMode = false
 
   [params.mytags]
 	go = 'Go is developed by google.'
@@ -40,21 +45,21 @@ Paginate = 6
 	
 	
 [[menu.main]]
-    name = "Home"
-    url = "/"
+    name = "Indian"
+    url = "/indian/"
     weight = 1
 
 [[menu.main]]
     name = "Videos"
-    url = "/tags/videos/"
+    url = "/videos/"
     weight = 2
 
 [[menu.main]]
-    name = "PornStars"
-    url = "/tags/pornstars/"
+    name = "Porn Stars"
+    url = "/pornstars/"
     weight = 3
 
 [[menu.main]]
     name = "Photos"
-    url = "/tags/photos/"
+    url = "/photos/"
     weight = 4

@@ -1,0 +1,268 @@
+<!-- editor.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hugo Content Editor</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.0.0/js-yaml.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+	
+    <!--link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script-->
+	
+	<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+
+	
+<style>
+	 body{max-width: 950px;}
+	 
+ /* Style for the custom alert */
+	#custom-alert {
+		display: none;
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		padding: 20px;
+		background-color: #fff;
+		border: 1px solid #ccc;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+		z-index: 1000;
+	}
+	
+	red {
+      color: red;
+      font-size: 1.2em; /* Adjust the font size as needed */
+    }
+	red::before {
+      content: '*';
+      color: red;
+    }
+</style>
+</head>
+<body>
+    <label for="post-list">Create New Post or Select to Edit:</label>
+    <select id="post-list"></select>
+	
+
+    <label for="post-title" >Title:<red></label>
+    <input type="text" id="post-title" size="122px" placeholder="Post title, will use as post slug if new, if edit title will change but slug remains same." required>
+	
+	<label for="post-title">Description:<red></label>
+    <textarea  id="post-description" placeholder="Excerpt: meta tag description, Important for seo!!!" rows="2" required></textarea>
+
+    <label for="post-tags">Tags (comma-separated):<red></label>
+    <input type="text" id="post-tags" size="122px" placeholder="At least add main tags i.e pornstar, video, photos, indian" required>
+	
+	
+	<label for="post-video-thumbnail">Video Poster:</label>
+    <input type="text" id="post-video-thumbnail" size="122px" placeholder="This will show as video poster.">
+	
+	<label for="post-video">Video Url:</label>
+    <input type="text" id="post-video" size="122px" placeholder="Direct link of the source .mp4 video.">
+	
+	<label for="post-video-duration">Video Duration:</label>
+    <input type="text" id="post-video-duration" size="122px" placeholder="Video duration like 5:09">
+
+    <label for="post-image">Feature Image:<red></label>
+    <input type="text" id="post-image" size="122px" placeholder="Top image for posts and Thumbnail for videos. Must add" required>
+	
+	<label for="post-images">Images (comma-separated):</label>
+    <input type="text" id="post-images" size="122px" placeholder="Images comma separated, will add in image SiteMap">
+
+    <label for="post-body">Post Body:<red></label>
+    <textarea id="post-body" placeholder="Start writing here." rows="20" required></textarea>
+
+    <!--button id="new-post-btn">Create New Post</button-->
+    <br/><button id="save-btn">Save</button>
+
+
+<!-- Custom alert container -->
+<div id="custom-alert">
+    <p id="alert-message"></p>
+    <button onclick="closeCustomAlert()">OK</button>
+</div>
+
+
+    <script>
+	
+	    //const editor = new EditorJS('post-body');
+		//var editor = new FroalaEditor('#post-body');
+		var ckeditor = CKEDITOR.replace( 'post-body', {
+			height: 400
+		});
+			
+        document.addEventListener('DOMContentLoaded', function() {
+            const postList = document.getElementById('post-list');
+            const newPostBtn = document.getElementById('new-post-btn');
+
+            function loadPostList() {
+                fetch('index.php')
+                    .then(response => response.json())
+                    .then(posts => {
+                        //postList.innerHTML = '';
+						//console.log(posts)
+						//add a New Post item
+						const option = document.createElement('option');
+						option.value = 'new-post';
+						option.text = 'New Post';
+						postList.add(option);
+							
+                        posts.forEach(post => {
+                            const option = document.createElement('option');
+                            option.value = post;
+                            option.text = post;
+                            postList.add(option);
+                        });
+
+                        // Load the content of the first post by default
+                        //loadPostContent(posts[0]);  //chatgpt provided it
+						
+						//i set the first item (New Post) value as '----'
+						loadPostContent('new-post');
+                    });
+            }
+
+            function loadPostContent(postSlug) {
+				console.log('Post slug: ', postSlug);
+				
+                fetch(`index.php?slug=${postSlug}`)
+                    .then(response => response.text())
+                    .then(content => {//console.log(content)
+                        const frontmatter = content.split('---\n')[1];
+                        const data = jsyaml.load(frontmatter);
+
+                        document.getElementById('post-title').value = data.title || '';
+                        document.getElementById('post-description').value = data.description || '';
+						document.getElementById('post-tags').value = data.tags ? data.tags.join(', ') : '';
+						
+                        document.getElementById('post-video-thumbnail').value = data.video ? data.video.image : '';
+                        document.getElementById('post-video').value = data.video ? data.video.url : '';
+                        document.getElementById('post-video-duration').value = data.video ? data.video.duration : '';
+						
+                        document.getElementById('post-image').value = data.image || '';                        
+                        document.getElementById('post-images').value = data.images ? data.images.join(', ') : '';
+						
+						if(postSlug == 'new-post'){
+						
+						   //document.getElementById('post-body').value = `
+						   CKEDITOR.instances['post-body'].setData(`
+<h1 class="mb-4">Post Title</h1>
+<p class="lead">A brief excerpt or summary of your post goes here.</p>
+<!-- Image Section -->
+<div class="row mt-4">
+	<div classs="col-md-8">		
+		<h2>Image Title</h2>
+		<img src="http://localhost/sample.jpg" alt="Image" class="img-fluid mb-3">
+		<p class="text-muted">Image Label</p>
+	</div>
+</div>`);
+						}
+						else{
+						   
+                           //document.getElementById('post-body').value = content.split('---\n').slice(2).join('---\n');
+						   CKEDITOR.instances['post-body'].setData(content.split('---\n').slice(2).join('---\n'));
+						   }
+                    });
+            }
+
+           /*
+            function createNewPost() {
+                // Reset input fields
+                document.getElementById('post-title').value = '';
+                document.getElementById('post-tags').value = '';
+                document.getElementById('post-images').value = '';
+                document.getElementById('post-body').value = '';
+
+                fetch('index.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'action=create',
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.slug) {
+                        loadPostList();
+                        postList.value = data.slug;
+                        loadPostContent(data.slug);
+                    }
+                });
+            }
+            */
+            loadPostList();
+
+            postList.addEventListener('change', function() {
+                const selectedPost = this.value;
+                loadPostContent(selectedPost);
+            });
+
+            //newPostBtn.addEventListener('click', createNewPost);
+
+            document.getElementById('save-btn').addEventListener('click', function() {
+                const selectedPost = postList.value;
+                const title = document.getElementById('post-title').value;
+                const description = document.getElementById('post-description').value;
+                const tags = document.getElementById('post-tags').value;
+				
+                const video_thumbnail = document.getElementById('post-video-thumbnail').value;
+                const video_duration = document.getElementById('post-video-duration').value;
+                const video_url = document.getElementById('post-video').value;
+				
+                const image = document.getElementById('post-image').value;
+                const images = document.getElementById('post-images').value;
+                //const body = document.getElementById('post-body').value; console.log(body);
+                const body =  CKEDITOR.instances['post-body'].getData();
+				
+				if(title=='' || description=='' || tags=='' || body==''){
+					alert("<span style='color:red;'>Fields with red asterisk are required.</span>");
+					return;
+				}
+
+                fetch('index.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `action=save&slug=${selectedPost}&title=${encodeURIComponent(title)}&tags=${encodeURIComponent(tags)}&video_thumbnail=${encodeURIComponent(video_thumbnail)}&video_duration=${encodeURIComponent(video_duration)}&video_url=${encodeURIComponent(video_url)}&image=${encodeURIComponent(image)}&images=${encodeURIComponent(images)}&body=${encodeURIComponent(body)}&description=${encodeURIComponent(description)}`,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Content saved successfully!');
+                    } else {
+                        alert('Failed to save content.');
+                    }
+                });
+            });
+        });
+    </script>
+	
+<script>
+    // Function to show custom alert
+    function showCustomAlert(message) {
+        // Set the alert message
+        document.getElementById('alert-message').innerHTML = message;
+
+        // Display the custom alert
+        document.getElementById('custom-alert').style.display = 'block';
+    }
+
+    // Function to close custom alert
+    function closeCustomAlert() {
+        // Hide the custom alert
+        document.getElementById('custom-alert').style.display = 'none';
+    }
+
+    // Replace the default alert function with the custom alert
+    window.alert = showCustomAlert;
+
+    // Example usage
+    //alert('This is a custom alert!');
+
+</script>
+</body>
+</html>
