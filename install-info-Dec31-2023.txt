@@ -1,0 +1,47 @@
+https://developers.cloudflare.com/pages/framework-guides/deploy-a-hugo-site/
+
+
+#create new site in the current folder
+hugo new site .
+
+git init
+
+git submodule add https://github.com/binokochumolvarghese/lightbi-hugo themes/lightbi-hugo
+
+//git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
+
+
+
+
+//this step is important, or it will show many errors, basically i will not found any theme to render contents
+//found no layout file for "HTML" for kind "home"
+
+echo theme = 'ananke' >> config.toml   
+
+
+//git remote add origin https://github.com/<your-gh-username>/<repository-name>
+git remote add origin https://github.com/md-imtiaj/hugo-cloudflare-build
+git branch -M main
+
+
+//then i simply logged using github desktop and did my first commit to main
+
+
+//set environment variable in cloudflare pages projet //this will change to <meta name="robots" content="index, follow"> from nofollow
+
+HUGO_ENV = "production"
+
+
+
+
+//this will require if git cmd is used, **did not worked for me
+//before this command i must login, for that i nust need to generate github access token, https://github.com/settings/tokens
+
+//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
+
+git config --global credential.helper manager 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
+
+git push -u origin main
+
+
+        

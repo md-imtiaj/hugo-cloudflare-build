@@ -42,24 +42,38 @@ Paginate = 6
   [params.mytags]
 	go = 'Go is developed by google.'
 	php = 'PHP is the most populer language for web developemnt.'
-	
-	
-[[menu.main]]
-    name = "Indian"
-    url = "/indian/"
-    weight = 1
 
-[[menu.main]]
-    name = "Videos"
-    url = "/videos/"
-    weight = 2
+
+
 
 [[menu.main]]
     name = "Porn Stars"
-    url = "/pornstars/"
+    url = "/PornStars/"
+    weight = 1	
+
+[[menu.main]]
+    name = "Top 10"
+    url = "/Top10/"
+    weight = 2
+
+[[menu.main]]
+    name = "Keywords"
+    url = "/PornKeywords/"
     weight = 3
+	
+[[menu.main]]
+    name = "Indian"
+    url = "/Indian/"
+    weight = 4
+
+[[menu.main]]
+    name = "Videos"
+    url = "/Videos/"
+    weight = 5
+
+
 
 [[menu.main]]
     name = "Photos"
-    url = "/photos/"
-    weight = 4
+    url = "/Photos/"
+    weight = 6

@@ -23,10 +23,11 @@
           {{- end -}}
           {{ end }}
           {{ if .Site.Params.rss }}
+		  <li class="gg-cast"></li>
           <li>
-            <a href="{{ with .OutputFormats.Get "RSS" }}{{ .RelPermalink }}{{ end }}" title="RSS">
+            <a href="{{ with .OutputFormats.Get "RSS" }}{{ .RelPermalink }}{{ end }}" title="RSS" >
               <span class="mx-2">
-                <i class="bi bi-rss">Rss 📡</i>
+                <i class="bi bi-rss">RSS</i>
               </span>
             </a>
           </li>
