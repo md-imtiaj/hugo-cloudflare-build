@@ -1,0 +1,7 @@
+<!-- layouts/partials/styled_title.html -->
+{{ $titleWords := split .Site.Title "." }}
+<a class="navbar-brand fw-bold" href="{{ "" | absLangURL }}" style="font-size: 24px; color: #333;">
+  <span style="color: #ff4500;">{{ index $titleWords 0 }}</span>
+  <span style="color: #ff4500;">👾</span>
+  <span style="color: #1e90ff;">{{ index $titleWords 1 }}</span>
+</a>

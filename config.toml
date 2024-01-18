@@ -45,6 +45,7 @@ Paginate = 6
 
 
 
+#nav main menu
 
 [[menu.main]]
     name = "Porn Stars"
@@ -74,6 +75,43 @@ Paginate = 6
 
 
 [[menu.main]]
+    name = "Photos"
+    url = "/Photos/"
+    weight = 6
+
+
+
+
+#menu for footer
+
+[[menu.footer]]
+    name = "Porn Stars"
+    url = "/PornStars/"
+    weight = 1	
+
+[[menu.footer]]
+    name = "Top 10"
+    url = "/Top10/"
+    weight = 2
+
+[[menu.footer]]
+    name = "Keywords"
+    url = "/PornKeywords/"
+    weight = 3
+	
+[[menu.footer]]
+    name = "Indian"
+    url = "/Indian/"
+    weight = 4
+
+[[menu.footer]]
+    name = "Videos"
+    url = "/Videos/"
+    weight = 5
+
+
+
+[[menu.footer]]
     name = "Photos"
     url = "/Photos/"
     weight = 6

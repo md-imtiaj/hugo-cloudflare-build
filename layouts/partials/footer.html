@@ -6,6 +6,32 @@
 <footer>
 
   <div class="container">
+  
+  
+   <div class="row">
+	
+        <div class="col-md-12">
+                           
+		 <!-- layouts/partials/nav.html -->
+         {{ partial "styled_title.html" . }}
+
+          <nav class="col">
+			<ul class="list-unstyled">
+			  {{ range $index, $item := .Site.Menus.footer.ByWeight }}
+				<li class="d-inline-block">
+				  <a href="{{ $item.URL }}" style="font-size: 16px;">{{ $item.Name }}</a>
+				  {{ if ne $index (sub (len $.Site.Menus.footer.ByWeight) 1) }}
+					<span class="text-muted mx-2">|</span>
+				  {{ end }}
+				</li>
+			  {{ end }}
+			</ul>
+		  </nav>
+		  
+        </div>
+    </div>
+	
+	
     <div class="row">
       <div class="col-md-12">
         <ul

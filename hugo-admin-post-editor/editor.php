@@ -44,6 +44,14 @@
       content: '*';
       color: red;
     }
+	
+	 .char-counter {
+      color: green;
+    }
+
+    .char-warning {
+      color: red;
+    }
 </style>
 </head>
 <body>
@@ -60,6 +68,7 @@
 
 	<label for="post-title">Description:<red></label>
     <textarea  id="post-description" placeholder="Excerpt: meta tag description, Important for seo!!!" rows="2" required><?php echo $description; ?></textarea>
+	<div >Characters left: <span id="char-counter" class="char-counter">170</span></div><br/>
 
     <label for="post-tags">Tags (comma-separated):<red></label>
     <input type="text" id="post-tags" size="122px" value="<?php echo $tags; ?>" placeholder="At least add main tags i.e pornstar, video, photos, indian" required>
@@ -101,7 +110,7 @@
 	    var postSlugEditLock = false;
 		
 		var ckeditor = CKEDITOR.replace( 'post-body', {
-			height: 400
+			height: 600
 		});
 		
         //DOMContentLoaded is used to load the ckeditor first and then do other things.	
@@ -151,6 +160,9 @@
                         document.getElementById('post-slug').readOnly  = true;
 						
                         document.getElementById('post-description').value = data.description || '';
+						//adjust text area height
+						adjustTextareaHeight(document.getElementById('post-description'));
+						
 						document.getElementById('post-tags').value = data.tags ? data.tags.join(', ') : '';
 						
                         document.getElementById('post-video-thumbnail').value = data.video ? data.video.image : '';
@@ -318,5 +330,63 @@
     });
   });
 </script>
+
+<script>
+
+
+// Function to adjust the textarea height based on content
+  function adjustTextareaHeight(descriptionTextarea) {
+    // Set a minimum number of rows (e.g., 1)
+    var minRows = 1;
+
+    // Calculate the number of rows based on the content
+    var currentRows = minRows + Math.floor((descriptionTextarea.scrollHeight - descriptionTextarea.clientHeight) / 10); // Adjust the divisor as needed
+
+    // Update the rows attribute
+    descriptionTextarea.rows = currentRows;
+  }
+
+ 
+</script>
+
+
+<script>
+    // Get the textarea element
+    var descriptionInput = document.getElementById('post-description');
+
+    // Get the counter element
+    var charCounter = document.getElementById('char-counter');
+
+    // Set the maximum number of characters
+    var maxChars = 170;
+    var alertThreshold = 120;
+
+    // Add an input event listener to the textarea
+    descriptionInput.addEventListener('change', calculateChars);
+    descriptionInput.addEventListener('input', calculateChars);
+	
+	function calculateChars() {
+      // Get the current number of characters
+      var currentChars = descriptionInput.value.length;
+
+      // Update the counter
+      charCounter.textContent = (maxChars - currentChars) + '/170. Total Characters: ' + currentChars;
+
+      // Change text color to red if reaching the alert threshold
+      if (currentChars > alertThreshold) {console.log('ok')
+        charCounter.classList.add('char-warning');
+		charCounter.classList.remove('char-counter');
+      } else {
+        charCounter.classList.remove('char-warning');
+		charCounter.classList.add('char-counter');
+      }
+	  
+	  if (currentChars > maxChars) {
+        alert("Chars exceeded maximum Threshold of 170 Chars.");
+      } 
+    }
+</script>
+  
+  
 </body>
 </html>
