@@ -16,7 +16,7 @@
    {{ end }}
 
         {{ if .Params.video }}
-        <video playsinline class="img-title" poster="{{ .Params.image }}" controls>
+        <video playsinline class="img-title" poster="{{ .Params.video.image }}" controls>
           <source src="{{ .Params.video.url }}">
         </video>
         {{ end }}
