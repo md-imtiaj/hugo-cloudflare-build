@@ -94,13 +94,13 @@ echo "<br/>\n<b>Tags: </b> $tags<br/>\n";
 
 $prompt = "Craft authentic and emotionally rich porn video scene descriptions that resonate with human experiences. Leverage the $title, $description include the $tags keywords to create narratives that not only inform but also connect with the audience on a personal level. Imbue the text with a genuine and relatable tone, capturing the essence of the content in a way that sparks curiosity, excitement, or any relevant emotions. Make the descriptions feel as though they were written by a person, incorporating warmth, enthusiasm, and a touch of personality.";
 
-echo "<br/><br/><textarea rows=15 cols=90 onclick=\"copyText()\">$prompt</textarea><br/><br/>";
+echo "<br/><br/><textarea rows=15 cols=90 onclick=\"copyText()\" id=\"myTextarea\">$prompt</textarea><br/><br/>";
 ?>
 
 <script>
 	let myWindow;
 	
-	let editor_url = 'http://localhost/hugo-admin-post-editor.php?title=' + encodeURIComponent('<?php echo $title; ?>') + '&description=' + encodeURIComponent('<?php echo $description; ?>') + '&tags=' + encodeURIComponent('<?php echo $tags; ?>') + '&poster=' + encodeURIComponent('<?php echo $poster; ?>') + '&video_url=' + encodeURIComponent('<?php echo $video_url; ?>') + '&duration=' + encodeURIComponent('<?php echo $duration; ?>');
+	let editor_url = 'http://localhost/hugo-admin-post-editor.php?title=' + encodeURIComponent('<?php echo rawurldecode(addslashes($title)); ?>') + '&description=' + encodeURIComponent('<?php echo rawurldecode(addslashes($description)); ?>') + '&tags=' + encodeURIComponent('<?php echo $tags; ?>') + '&poster=' + encodeURIComponent('<?php echo $poster; ?>') + '&video_url=' + encodeURIComponent('<?php echo $video_url; ?>') + '&duration=' + encodeURIComponent('<?php echo $duration; ?>');
 
 	function openOrReloadWindow() {
 		if (myWindow && !myWindow.closed) {
