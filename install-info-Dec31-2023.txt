@@ -17,6 +17,7 @@ git submodule add https://github.com/binokochumolvarghese/lightbi-hugo themes/li
 //found no layout file for "HTML" for kind "home"
 
 echo theme = 'ananke' >> config.toml   
+echo theme = 'lightbi-hugo' >> config.toml   
 
 
 //git remote add origin https://github.com/<your-gh-username>/<repository-name>
