@@ -3,6 +3,7 @@
 $adminSrcDir = 'hugo-admin-post-editor';
 
 $hugoContentFolder = "content/posts";
+$hugoContentVideosFolder = "content/videos";
 $hugoContentDir = __DIR__ . "/$hugoContentFolder/";
 
 $backUpFolderName = "posts-backup";
@@ -19,6 +20,10 @@ if (!is_dir($backUpFolderName)) {
 if (!is_dir($hugoContentFolder)) {
     mkdir($hugoContentFolder, 0777, true); // The third parameter (true) creates parent directories if they don't exist
 } 
+
+if (!is_dir($hugoContentVideosFolder)) {
+    mkdir($hugoContentFolder, 0777, true); // The third parameter (true) creates parent directories if they don't exist
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	/*Get the args*/
@@ -49,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if ($action === 'create') {
         $newPostSlug = createNewPost();
         echo json_encode(['slug' => $newPostSlug]);
+		
     } elseif ($action === 'save') {
         //echo '<script>';
         //echo 'var postData = ' . json_encode($_POST) . ';';
@@ -113,8 +119,20 @@ function savePostContent($postSlug, $title, $tags, $video_thumbnail, $video_url,
 	file_put_contents($backupDir . $postSlug . '.html', @file_get_contents($postFile));
 
     $content = "---\n";
-    $content .= "title: \"$title\"\n";
+    
+	if($video_thumbnail != '' && $video_url!=''){
+		$content .= "title: \"$title Video\"\n";
+	}
+	else{
+		$content .= "title: \"$title\"\n";
+	}
+	
     $content .= "slug: \"$postSlug\"\n";
+	
+	if($video_thumbnail != '' && $video_url!=''){
+		$content .= "url: \"video/$postSlug\"\n";
+	}
+	
     $content .= "description: \"$description\"\n";
     $content .= "date: \"" . date("c") . "\"\n";
     $content .= "tags: [" . implode(', ', array_map('trim', explode(',', $tags))) . "]\n";

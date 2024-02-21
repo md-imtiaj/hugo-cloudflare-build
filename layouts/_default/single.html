@@ -24,10 +24,39 @@
     </div>
 
     <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 pt-4">
-      <article role="main" class="blog-post">
+	  {{ if not .Params.video }}	  
+       <article role="main" class="blog-post">
         {{ .Content }}
-      </article>
+       </article>
+	   
+	   {{ else }}
+	   
+	   <div class="multiline-text" id="multilineText">
+		  <!-- Your multiline text goes here -->
+		  {{ .Content }}
+		</div>
+		<div class="show-more" id="showMoreButton">Show more</div>
+
+		<script>
+		  const textContainer = document.getElementById('multilineText');
+		  const showMoreButton = document.getElementById('showMoreButton');
+
+		  showMoreButton.addEventListener('click', function() {
+			textContainer.classList.toggle('full');
+			if (textContainer.classList.contains('full')) {
+			  showMoreButton.textContent = 'Show less';
+			} else {
+			  showMoreButton.textContent = 'Show more';
+			}
+		  });
+		</script>
+
+	   {{ end }}
+	   
     </div>
+	
+	
+	
   </div>
 
   <div class="row">

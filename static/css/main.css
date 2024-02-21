@@ -1153,4 +1153,29 @@ ul.share li:hover .fab {
  } 
  
  
- 
+ /*CSS for Collapse multiline text*/
+ .multiline-text {
+    overflow: hidden;
+    position: relative;
+    line-height: 1.5em; /* Adjust as needed */
+    max-height: 3.0em; /* Double of line-height to show two lines */
+    text-align: justify; /* Optional: Align text */
+    margin-bottom: 0.5em; /* Space for "Show more" link */
+  }
+  .multiline-text.full {
+    max-height: none; /* Show full text */
+  }
+  .multiline-text::after {
+    content: '';
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 1.2em; /* Same as line-height */
+    /*background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));*/ /* Fading gradient */
+  }
+  .show-more {
+    cursor: pointer;
+    color: blue;
+  }
