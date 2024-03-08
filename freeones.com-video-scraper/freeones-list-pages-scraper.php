@@ -29,5 +29,14 @@ foreach ($teaserVideoDivs as $div) {
 			echo "<br>\n";
 			$counter = $counter + 1;
 		}
+		//trailer webm
+		$img = $div->getElementsByTagName('img')->item(0);
+		if ($img) {			
+            // Extract 
+            $trailer_url = $img->getAttribute('data-media') . 'WebM.webm';
+			echo " Trailer: <a href='$trailer_url' target='_blank'>$trailer_url</a>";
+			echo "<br><br>\n";
+		}
+		
 	}
 }
