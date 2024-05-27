@@ -1,4 +1,5 @@
 {{ define "main" }}
+
 <div class="container" role="main">
   <div class="row">
     <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 ">
@@ -26,7 +27,10 @@
     <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 pt-4">
 	  {{ if not .Params.video }}	  
        <article role="main" class="blog-post">
-        {{ .Content }}
+		
+
+         
+       {{ .Content }}
        </article>
 	   
 	   {{ else }}

@@ -1,0 +1,4 @@
+{{- $re := `\[\[(.*?)\]\]` -}}
+{{- $content := . -}}
+{{- $content = replaceRE $re `{{< keyword-link "$1" >}}` $content -}}
+{{- $content | safeHTML -}}

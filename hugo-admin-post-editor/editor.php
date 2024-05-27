@@ -110,7 +110,9 @@
 	    var postSlugEditLock = false;
 		
 		var ckeditor = CKEDITOR.replace( 'post-body', {
-			height: 600
+			height: 600,
+			entities: false,
+			
 		});
 		
         //DOMContentLoaded is used to load the ckeditor first and then do other things.	

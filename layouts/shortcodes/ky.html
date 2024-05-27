@@ -1,0 +1,7 @@
+{{- $slug := .Get 0 | lower | urlize -}}
+{{- $page := site.GetPage "page" $slug -}}
+{{- if $page -}}
+  <a href="{{ $page.Permalink }}">{{ .Get 0 }}</a>
+{{- else -}}
+  {{ .Get 0 }}
+{{- end -}}

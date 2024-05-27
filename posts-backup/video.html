@@ -1,0 +1,78 @@
+---
+title: "video"
+slug: "video"
+description: "Free Video"
+date: "2024-05-27T16:04:15+00:00"
+tags: [v]
+image: ""
+images: []
+---
+
+<div class="container mt-5">
+    
+    <div class="embed-responsive embed-responsive-16by9">
+        <iframe class="embed-responsive-item" id="video-embed" src="" allowfullscreen></iframe>
+    </div>
+</div>
+
+
+
+<script>
+// Function to get URL parameters
+function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}
+
+// Extract parameters from URL
+const videoid = getUrlParameter('videoid');
+const title = getUrlParameter('title');
+const keyword = getUrlParameter('keyword');
+const duration = getUrlParameter('duration');
+
+const siteUrl = 'https://xhamster1.desi/embed/';
+
+// Update the page title
+document.title = title;
+
+// Update meta description
+const metaDescription = `${title} - Watch this video about ${keyword} with a duration of ${duration}.`;
+document.querySelector('meta[name="description"]').setAttribute('content', metaDescription);
+
+// Update Open Graph tags
+document.querySelector('meta[property="og:title"]').setAttribute('content', title);
+document.querySelector('meta[property="og:description"]').setAttribute('content', metaDescription);
+document.querySelector('meta[property="og:url"]').setAttribute('content', window.location.href);
+//document.querySelector('meta[property="og:image"]').setAttribute('content', `${siteUrl}${videoid}/thumbnail.jpg`); // Assuming thumbnail URL format
+
+//document.querySelector('meta[property="og:video"]').setAttribute('content', `${siteUrl}${videoid}`);
+
+// Update the title in the heading
+//document.getElementById('video-title').innerText = title;
+document.querySelector('.posts-heading h1').innerText = title;
+
+// Update the video embed
+document.getElementById('video-embed').setAttribute('src', `${siteUrl}${videoid}`);
+
+// Add structured data for video
+const structuredData = {
+    "@context": "http://schema.org",
+    "@type": "VideoObject",
+    "name": title,
+    "description": metaDescription,
+    "thumbnailUrl": `${siteUrl}${videoid}/thumbnail.jpg`,
+    "uploadDate": "2024-05-25T08:00:00+08:00", // Example date, should be dynamic
+    "duration": `PT${duration}M`, // Assuming duration is in minutes
+    "contentUrl": `${siteUrl}${videoid}`,
+    "embedUrl": `${siteUrl}${videoid}`,
+    "interactionCount": "2347" // Example view count, should be dynamic
+};
+
+// Append structured data to the head
+const script = document.createElement('script');
+script.type = 'application/ld+json';
+script.text = JSON.stringify(structuredData);
+document.head.appendChild(script);
+</script>

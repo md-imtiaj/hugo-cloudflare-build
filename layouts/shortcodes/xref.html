@@ -1,0 +1,6 @@
+{{ $path := .Get "path" }}
+{{ $path := trim $path "/" }}
+<!-- now pass it to the relref function -->
+{{ $relreflink := relref . $path }}
+
+<a href="{{ $relreflink }}" title="Some title" rel="nofollow" target="_blank">Some text</a>
