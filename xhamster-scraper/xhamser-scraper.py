@@ -66,7 +66,7 @@ def seconds_to_hms(seconds):
 
 shortcode_template = """
 <div class="container mt-5">
-    <h2 class="mb-4">Related Keywords</h2>
+    <h2 class="mb-4 h5">"<strong>%s</strong>" More Desiring Terms.</h2>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -80,12 +80,12 @@ shortcode_template = """
     </div>
 </div>"""
 
-def generate_hugo_shortcodes(suggestions):
+def generate_hugo_shortcodes(suggestions, keyword):
     shortcodes = ""
     for suggestion in suggestions[1:]: #[1:] removing first item it is "Best Videos"
         shortcodes += '<span class="badge text-primary m-1">{{% ky ' + f'"{suggestion["plainText"]}"' + ' %}}</span> | \n'
 
-    shortcodes = shortcode_template % shortcodes
+    shortcodes = shortcode_template % (keyword, shortcodes)
     return shortcodes
 
 def generate_bootstrap_gallery(videos, search_keyword_plus):
@@ -101,7 +101,7 @@ def generate_bootstrap_gallery(videos, search_keyword_plus):
         new_title = title_rewrite.convert_sentence(title, synonyms)
         new_title_plus = urllib.parse.quote_plus(new_title)
         
-        link = f'{mySitEmbedUrl}?videoid={videoid}&title={new_title_plus}&keyword={search_keyword_plus}&duration={duration_sec}'
+        link = f'{mySitEmbedUrl}?videoid={videoid}&title={new_title_plus}&category={search_keyword_plus}&duration={duration_sec}'
         
         # Randomly select a wp domain
         wp_domain = random.choice(wp_domains)
@@ -151,7 +151,7 @@ def main():
         search_video_suggestions = data['searchVideoSuggestions']['tags']
         search_results = data['searchResult']['videoThumbProps']
         
-        hugo_shortcodes = generate_hugo_shortcodes(search_video_suggestions)
+        hugo_shortcodes = generate_hugo_shortcodes(search_video_suggestions, search_keyword)
         bootstrap_gallery = generate_bootstrap_gallery(search_results, search_keyword_plus)
         
         combined_html = hugo_shortcodes + "\n\n<br/><br/>" + f'<h2 class="h5">{search_keyword} Videos</h2><br/>' + bootstrap_gallery

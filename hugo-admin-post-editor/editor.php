@@ -112,6 +112,9 @@
 		var ckeditor = CKEDITOR.replace( 'post-body', {
 			height: 600,
 			entities: false,
+			startupMode: 'source',
+			allowedContent: true,
+			extraAllowedContent: 'span',
 			
 		});
 		

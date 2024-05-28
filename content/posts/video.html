@@ -33,7 +33,7 @@ function getUrlParameter(name) {
 // Extract parameters from URL
 const videoid = getUrlParameter('videoid');
 const title = getUrlParameter('title');
-const keyword = getUrlParameter('keyword');
+const category = getUrlParameter('category');
 const duration = getUrlParameter('duration');
 
 const siteUrl = 'https://xhamster1.desi/embed/';
@@ -42,7 +42,7 @@ const siteUrl = 'https://xhamster1.desi/embed/';
 document.title = title;
 
 // Update meta description
-const metaDescription = `${title} - Watch this video about ${keyword}.`;
+const metaDescription = `${title} - Watch this video about ${category}.`;
 document.querySelector('meta[name="description"]').setAttribute('content', metaDescription);
 
 // Update Open Graph tags
@@ -140,7 +140,7 @@ function getSeededRandomItems(array, seed, count) {
 
 //const videos = document.querySelectorAll('.row .col-sm-4');
 
-fetch("/" + keyword.replaceAll(' ','-'))
+fetch("/" + category.replaceAll(' ','-'))
   .then(response => response.text())
   .then(html => {
     const parser = new DOMParser();
@@ -170,7 +170,7 @@ fetch("/" + keyword.replaceAll(' ','-'))
 	  
 	  document.querySelector('#thumnbail-gallery').innerHTML = gallery_html;
 	  
-	  document.querySelector('#related-title').innerHTML = keyword + " Videos";
+	  document.querySelector('#related-title').innerHTML = category + " Videos";
 	  
       // Do something with the extracted items
       colSm4Items.forEach(item => {
