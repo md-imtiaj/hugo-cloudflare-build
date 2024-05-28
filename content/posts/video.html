@@ -15,7 +15,7 @@ images: []
         </div>
 	</div>
 
-    <h2 class="h5" id="related-title"></h2><br/>
+    <br/><h2 class="h5" id="related-title"></h2><br/>
 	
 	<div class="row" id="thumnbail-gallery">
 	</div>
@@ -42,13 +42,15 @@ const siteUrl = 'https://xhamster1.desi/embed/';
 document.title = title;
 
 // Update meta description
-const metaDescription = `${title} - Watch this video about ${keyword} with a duration of ${duration}.`;
+const metaDescription = `${title} - Watch this video about ${keyword}.`;
 document.querySelector('meta[name="description"]').setAttribute('content', metaDescription);
 
 // Update Open Graph tags
 document.querySelector('meta[property="og:title"]').setAttribute('content', title);
 document.querySelector('meta[property="og:description"]').setAttribute('content', metaDescription);
 document.querySelector('meta[property="og:url"]').setAttribute('content', window.location.href);
+
+document.querySelector('link[rel="canonical"]').setAttribute('href', window.location.href);
 //document.querySelector('meta[property="og:image"]').setAttribute('content', `${siteUrl}${videoid}/thumbnail.jpg`); // Assuming thumbnail URL format
 
 //document.querySelector('meta[property="og:video"]').setAttribute('content', `${siteUrl}${videoid}`);
