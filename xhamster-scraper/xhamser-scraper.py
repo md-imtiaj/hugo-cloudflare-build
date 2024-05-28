@@ -94,13 +94,14 @@ def generate_bootstrap_gallery(videos, search_keyword_plus):
     
     for video in videos:
         videoid = video['pageURL'].rsplit('-', 1)[-1]
+        duration_sec = video['duration']
         duration = seconds_to_hms(video['duration'])
 
         title = video["title"]
         new_title = title_rewrite.convert_sentence(title, synonyms)
         new_title_plus = urllib.parse.quote_plus(new_title)
         
-        link = f'{mySitEmbedUrl}?videoid={videoid}&title={new_title_plus}&keyword={search_keyword_plus}'
+        link = f'{mySitEmbedUrl}?videoid={videoid}&title={new_title_plus}&keyword={search_keyword_plus}&duration={duration_sec}'
         
         # Randomly select a wp domain
         wp_domain = random.choice(wp_domains)
