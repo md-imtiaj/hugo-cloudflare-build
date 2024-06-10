@@ -32,14 +32,14 @@ function getUrlParameter(name) {
 
 // Extract parameters from URL
 const videoid = getUrlParameter('videoid');
-const title = getUrlParameter('title');
+const title = getUrlParameter('title'); 
 const category = getUrlParameter('category');
 const duration = getUrlParameter('duration');
 
 const siteUrl = 'https://xhamster1.desi/embed/';
 
 // Update the page title
-document.title = title;
+document.title = 'Watch ' + title + ' Video';
 
 // Update meta description
 const metaDescription = `${title} - Watch this video about ${category}.`;
@@ -57,7 +57,7 @@ document.querySelector('link[rel="canonical"]').setAttribute('href', window.loca
 
 // Update the title in the heading
 //document.getElementById('video-title').innerText = title;
-document.querySelector('.posts-heading h1').innerText = title;
+document.querySelector('.page-heading h1').innerText = title;
 
 // Update the video embed
 document.getElementById('video-embed').setAttribute('src', `${siteUrl}${videoid}`);

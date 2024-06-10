@@ -1,0 +1,19 @@
+{{ $start := .Get "start" | default 0 }}
+{{ $end := .Get "end" | default 200 }}
+{{ $total := len .Site.RegularPages }}
+
+{{ if gt $end $total }}
+    {{ $end = $total }}
+{{ end }}
+
+<ul>
+    {{ $pages := .Site.RegularPages }}
+    {{ $endIndex := add $end 1 }}
+    {{ range $i, $page := $pages }}
+        {{ if and (ge $i $start) (lt $i $endIndex) }}
+            <li>
+                <a href="{{ .Permalink }}">{{ .Title }}</a>
+            </li>
+        {{ end }}
+    {{ end }}
+</ul>
